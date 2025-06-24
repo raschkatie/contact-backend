@@ -9,12 +9,18 @@ const PORT = process.env.PORT || 3001;
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 // Middleware
+const allowedOrigins = ['https://katierasch.com', 'https://www.katierasch.com'];
+
 app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'https://www.katierasch.com');
+  const origin = req.headers.origin;
+  if (allowedOrigins.includes(origin)) {
+    res.header('Access-Control-Allow-Origin', origin);
+  }
   res.header('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Origin, Accept');
   next();
 });
+
 app.use(bodyParser());
 
 // Routes
