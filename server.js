@@ -9,7 +9,11 @@ const PORT = process.env.PORT || 3001;
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 // Middleware
-app.use(cors());
+app.use(cors({
+    origin: ['http://127.0.0.1:5500', 'http://localhost:5500', 'https://www.katierasch.com'],
+    methods: ['POST'],
+    allowedHeaders: ['Content-Type']
+}));
 app.use(bodyParser());
 
 // Routes
