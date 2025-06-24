@@ -10,11 +10,14 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 // Middleware
 app.use(cors({
-    origin: ['http://127.0.0.1:5500', 'http://localhost:5500', 'https://www.katierasch.com'],
-    methods: ['POST'],
-    allowedHeaders: ['Content-Type']
+  origin: ['http://127.0.0.1:5500', 'http://localhost:5500', 'https://www.katierasch.com'],
+  methods: ['POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'Origin', 'Accept'],
+  credentials: false
 }));
 app.use(bodyParser());
+
+app.options('/contact', cors());
 
 // Routes
 app.post('/contact', (req, res) => {
